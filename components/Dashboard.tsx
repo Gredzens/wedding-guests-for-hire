@@ -142,7 +142,7 @@ export default function Dashboard() {
           <a href="https://docs.google.com/spreadsheets/d/1ke50QgIIbhbRLYceM1CWJAyRBA0rwUquu4OY2fGUqFU/edit">
             Google Sheet
           </a>
-          <a href="https://github.com/PatriksGredzens/wedding-guests-for-hire">
+          <a href="https://github.com/Gredzens/wedding-guests-for-hire">
             GitHub
           </a>
         </nav>

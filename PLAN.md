@@ -36,7 +36,7 @@ Validation: lint, typecheck, unit/integration tests, focused browser tests, prod
 
 ## Milestone 5 Live infrastructure
 
-- [ ] Initialize Git; scan secrets; commit; create and push public GitHub repository. (Local Git/scan/commit complete; public creation awaits explicit approval.)
+- [x] Initialize Git; scan secrets; commit; create and push public GitHub repository.
 - [x] Apply Supabase migrations and seed; prove sales/expenses empty.
 - [x] Initialize Sales/Expenses headers and prove no financial rows.
 - [ ] Create/configure/deploy Vercel production with encrypted environment variables.

@@ -2,7 +2,7 @@
 
 ## Current state
 
-Implementation and local/live-data verification are complete through the publication boundary. No application transactions have been entered and no course submission has been made. Public GitHub creation is paused because the execution safety reviewer requires a fresh explicit confirmation that the staged project may be exposed publicly.
+Implementation, local/live-data verification, and public GitHub publication are complete. No application transactions have been entered and no course submission has been made. Vercel deployment is waiting for the user to complete the visible interactive Vercel account sign-in; credentials are not requested or exposed.
 
 ## Completed evidence
 
@@ -32,17 +32,17 @@ Implementation and local/live-data verification are complete through the publica
 
 - Google Sheet: https://docs.google.com/spreadsheets/d/1ke50QgIIbhbRLYceM1CWJAyRBA0rwUquu4OY2fGUqFU/edit
 - Telegram: https://t.me/WeddingFinance222bot
-- GitHub: pending
+- GitHub: https://github.com/Gredzens/wedding-guests-for-hire (public, `main` at `9d1a126` when first verified)
 - Vercel: pending
 - Supabase: live schema and integrity upgrade verified; transaction tables empty
 
 ## Current blocker assessment
 
-Public GitHub creation was rejected by the safety reviewer because it would expose the staged project to the internet. The user must explicitly confirm that the secret-scanned project may be published as a public GitHub repository. After that confirmation, GitHub push, Vercel deployment/configuration, Telegram webhook activation, and final public verification can continue.
+Vercel requires an interactive account sign-in before its official CLI can be authorized. The sign-in page is open in the visible Codex browser and the CLI is waiting on device authorization. Minimum user action: complete that sign-in without sharing credentials, then tell Codex it is done.
 
 ## Exact next action
 
-After explicit public-publication approval: create `Gredzens/wedding-guests-for-hire` as a public repository, push the local `main` branch, deploy/configure Vercel with encrypted environment variables, configure and verify the secured Telegram webhook, then perform final public-link and empty-table checks before the manual Test 1 handoff.
+After Vercel sign-in: finish the waiting CLI authorization, deploy/configure Vercel with encrypted environment variables, configure and verify the secured Telegram webhook, then perform final public-link and empty-table checks before the manual Test 1 handoff.
 
 ## Manual test runbook
 
