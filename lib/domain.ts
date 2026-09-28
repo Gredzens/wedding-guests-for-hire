@@ -91,15 +91,16 @@ export function calculateCommission(amountCents: number, split: Split) {
     throw new Error("Amount must be greater than zero.");
   const pool = Math.round(amountCents * 0.1);
   const values = Object.fromEntries(
-    order.map((person) => [person, Math.round((pool * split[person]) / 100)]),
+    order.map((person) => [person, Math.floor((pool * split[person]) / 100)]),
   ) as Record<Salesperson, number>;
-  const delta = pool - order.reduce((sum, person) => sum + values[person], 0);
-  if (delta) {
+  const remainder =
+    pool - order.reduce((sum, person) => sum + values[person], 0);
+  if (remainder) {
     const winner = order.reduce(
       (best, person) => (split[person] > split[best] ? person : best),
       "richard",
     );
-    values[winner] += delta;
+    values[winner] += remainder;
   }
   return { poolCents: pool, commissions: values };
 }

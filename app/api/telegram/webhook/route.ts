@@ -35,6 +35,7 @@ async function send(chat: number | string, text: string, buttons?: string[][]) {
     throw new Error(`Telegram response failed (${response.status}).`);
 }
 export async function POST(request: Request) {
+  let claimedUpdateId: number | undefined;
   try {
     if (
       request.headers.get("x-telegram-bot-api-secret-token") !==
@@ -42,6 +43,7 @@ export async function POST(request: Request) {
     )
       return NextResponse.json({ ok: false }, { status: 401 });
     const update = (await request.json()) as Update;
+    claimedUpdateId = update.update_id;
     const c = db();
     const claimed = await c
       .from("processed_telegram_updates")
@@ -194,6 +196,16 @@ export async function POST(request: Request) {
     await send(chat, n[1], buttons);
     return NextResponse.json({ ok: true });
   } catch (error) {
+    if (claimedUpdateId !== undefined) {
+      await db()
+        .from("processed_telegram_updates")
+        .delete()
+        .eq("update_id", claimedUpdateId)
+        .then(
+          () => undefined,
+          () => undefined,
+        );
+    }
     return NextResponse.json(
       {
         ok: false,

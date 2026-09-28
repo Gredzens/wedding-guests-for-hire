@@ -131,8 +131,8 @@ describe("finance rules", () => {
       "jean-claude": 3,
     });
     expect(calculateCommission(105, split(50, 50, 0)).commissions).toEqual({
-      richard: 5,
-      anastasia: 6,
+      richard: 6,
+      anastasia: 5,
       "jean-claude": 0,
     });
   });
@@ -154,6 +154,15 @@ describe("finance rules", () => {
         category: "Other",
         amountCents: -1,
         proposedAllocation: "A",
+      }),
+    ).toThrow();
+    expect(() =>
+      saleInputSchema.parse({
+        reference: "MISSING",
+        customer: "C",
+        project: "A",
+        description: "D",
+        proposedSplit: split(100, 0, 0),
       }),
     ).toThrow();
     expect(() =>

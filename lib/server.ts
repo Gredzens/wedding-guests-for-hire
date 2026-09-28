@@ -18,6 +18,7 @@ import {
   type DeliveryStore,
   type RecordType,
 } from "./delivery";
+import { notificationRecipient, sheetUpsertRange } from "./integration";
 
 export function db() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -298,19 +299,18 @@ async function syncSheetsRow(kind: "sale" | "expense", reference: string) {
     spreadsheetId: id,
     range: `${tab}!A:A`,
   });
-  const idx = (existing.data.values ?? []).findIndex((r) => r[0] === reference);
-  const range = idx >= 1 ? `${tab}!A${idx + 1}` : `${tab}!A:A`;
-  if (idx >= 1)
+  const target = sheetUpsertRange(tab, existing.data.values ?? [], reference);
+  if (target.mode === "update")
     await sheets.spreadsheets.values.update({
       spreadsheetId: id,
-      range,
+      range: target.range,
       valueInputOption: "RAW",
       requestBody: { values: [row] },
     });
   else
     await sheets.spreadsheets.values.append({
       spreadsheetId: id,
-      range,
+      range: target.range,
       valueInputOption: "RAW",
       insertDataOption: "INSERT_ROWS",
       requestBody: { values: [row] },
@@ -415,14 +415,18 @@ async function notificationChat(row: {
   submitter?: string;
   reporter?: string;
 }) {
-  if (row.origin_chat_id) return row.origin_chat_id;
+  if (row.origin_chat_id)
+    return notificationRecipient(row.origin_chat_id, undefined);
   const employee = row.submitter ?? row.reporter;
   const { data } = await db()
     .from("telegram_links")
     .select("chat_id")
     .eq("employee_key", employee)
     .maybeSingle();
-  return data?.chat_id as string | undefined;
+  return notificationRecipient(
+    row.origin_chat_id,
+    data?.chat_id as string | undefined,
+  );
 }
 async function notifySale(row: any) {
   const chat = await notificationChat(row);

@@ -2,7 +2,7 @@
 
 ## Current state
 
-Paused at the user's request while waiting for credits to return. The authoritative Master Build Prompt and complete homework have been read. No application transactions have been entered and no course submission has been made.
+Implementation and local/live-data verification are complete through the publication boundary. No application transactions have been entered and no course submission has been made. Public GitHub creation is paused because the execution safety reviewer requires a fresh explicit confirmation that the staged project may be exposed publicly.
 
 ## Completed evidence
 
@@ -14,6 +14,11 @@ Paused at the user's request while waiting for credits to return. The authoritat
 - Supabase migration was applied through the signed-in project SQL editor and verified with exactly 5 employees, 0 sales, and 0 expenses.
 - Google Sheet tabs `Sales` and `Expenses` were verified, initialized with readable headers, frozen header rows, deliberate widths, and zero transaction rows. Native browser screenshots were visually checked.
 - Production build completed successfully. Formatting, lint, TypeScript, and the current domain test suite pass.
+- Current automated suite: 3 files, 10 tests passing. It covers both prescribed datasets, negative validation/permissions, deterministic rounding and tie order, repeated decisions, tracked delivery failure/retry, deterministic Sheets row updates, and preservation of the original Telegram recipient.
+- Local browser verification passed against the live empty Supabase project: manager and employee role views load, no console errors were observed, and a 390 px viewport had no page-level overflow.
+- Manager commission correction, integration attempt history/retry controls, Telegram validation recovery, and Telegram redelivery recovery were added.
+- Git repository initialized on `main`, tracked files secret-scanned with zero matches, and initial commit `42f9c83` created.
+- Supabase integrity migration applied live. Verification returned 5 employees, 0 sales, 0 expenses, 0 claimed financial references, 4 integrity triggers, and 2 decision-consistency constraints.
 - Protective `.gitignore` and empty-value `.env.example` created before dependencies or application code.
 
 ## Decisions
@@ -29,15 +34,15 @@ Paused at the user's request while waiting for credits to return. The authoritat
 - Telegram: https://t.me/WeddingFinance222bot
 - GitHub: pending
 - Vercel: pending
-- Supabase: configured project URL; live schema not yet verified
+- Supabase: live schema and integrity upgrade verified; transaction tables empty
 
 ## Current blocker assessment
 
-No blocker to implementation. The missing service-account JSON file is a potential blocker to live Google Sheets synchronization and will be rechecked after independent build/test work.
+Public GitHub creation was rejected by the safety reviewer because it would expose the staged project to the internet. The user must explicitly confirm that the secret-scanned project may be published as a public GitHub repository. After that confirmation, GitHub push, Vercel deployment/configuration, Telegram webhook activation, and final public verification can continue.
 
 ## Exact next action
 
-Resume with the remaining live publication path: initialize/secret-scan Git, create and push the public GitHub repository, deploy/configure Vercel with encrypted environment variables, configure and verify the secured Telegram webhook, then perform final public-link and empty-table checks before the manual Test 1 handoff.
+After explicit public-publication approval: create `Gredzens/wedding-guests-for-hire` as a public repository, push the local `main` branch, deploy/configure Vercel with encrypted environment variables, configure and verify the secured Telegram webhook, then perform final public-link and empty-table checks before the manual Test 1 handoff.
 
 ## Manual test runbook
 
