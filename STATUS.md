@@ -17,7 +17,7 @@ Implementation and local/live-data verification are complete through the publica
 - Current automated suite: 3 files, 10 tests passing. It covers both prescribed datasets, negative validation/permissions, deterministic rounding and tie order, repeated decisions, tracked delivery failure/retry, deterministic Sheets row updates, and preservation of the original Telegram recipient.
 - Local browser verification passed against the live empty Supabase project: manager and employee role views load, no console errors were observed, and a 390 px viewport had no page-level overflow.
 - Manager commission correction, integration attempt history/retry controls, Telegram validation recovery, and Telegram redelivery recovery were added.
-- Git repository initialized on `main`, tracked files secret-scanned with zero matches, and initial commit `42f9c83` created.
+- Git repository initialized on `main`, tracked files secret-scanned with zero matches, initial commit `42f9c83` created, and verified hardening checkpoint `243bbf8` committed.
 - Supabase integrity migration applied live. Verification returned 5 employees, 0 sales, 0 expenses, 0 claimed financial references, 4 integrity triggers, and 2 decision-consistency constraints.
 - Protective `.gitignore` and empty-value `.env.example` created before dependencies or application code.
 
