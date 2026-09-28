@@ -1,49 +1,72 @@
 # Wedding Guests for Hire Status
 
-## Current state
+## Handoff state
 
-Implementation, local/live-data verification, and public GitHub publication are complete. No application transactions have been entered and no course submission has been made. Vercel deployment is waiting for the user to complete the visible interactive Vercel account sign-in; credentials are not requested or exposed.
-
-## Completed evidence
-
-- Master Build Prompt read completely from the specified build-package Markdown file.
-- Homework structurally extracted: 151 paragraphs, 12 tables, four external hyperlinks, one section, no inline images.
-- Homework rendered through Microsoft Word to a nine-page PDF after the packaged renderer reported no bundled LibreOffice executable. All nine page images were visually inspected; tables, headings, formulas, appendices, and links are legible and complete.
-- Private environment handoff exists and contains all six named variables. Values were not printed. The configured Google service-account JSON path currently does not resolve to a file; this may block only the live Sheets credential step after all independent work is complete.
-- The private Google service-account path was revalidated successfully; the JSON is a service-account credential with client email, project ID, and private key fields. Values remain undisclosed.
-- Supabase migration was applied through the signed-in project SQL editor and verified with exactly 5 employees, 0 sales, and 0 expenses.
-- Google Sheet tabs `Sales` and `Expenses` were verified, initialized with readable headers, frozen header rows, deliberate widths, and zero transaction rows. Native browser screenshots were visually checked.
-- Production build completed successfully. Formatting, lint, TypeScript, and the current domain test suite pass.
-- Current automated suite: 3 files, 10 tests passing. It covers both prescribed datasets, negative validation/permissions, deterministic rounding and tie order, repeated decisions, tracked delivery failure/retry, deterministic Sheets row updates, and preservation of the original Telegram recipient.
-- Local browser verification passed against the live empty Supabase project: manager and employee role views load, no console errors were observed, and a 390 px viewport had no page-level overflow.
-- Manager commission correction, integration attempt history/retry controls, Telegram validation recovery, and Telegram redelivery recovery were added.
-- Git repository initialized on `main`, tracked files secret-scanned with zero matches, initial commit `42f9c83` created, and verified hardening checkpoint `243bbf8` committed.
-- Supabase integrity migration applied live. Verification returned 5 employees, 0 sales, 0 expenses, 0 claimed financial references, 4 integrity triggers, and 2 decision-consistency constraints.
-- Protective `.gitignore` and empty-value `.env.example` created before dependencies or application code.
-
-## Decisions
-
-- Monetary values will use integer cents, never floating-point arithmetic.
-- A shared domain/application layer will serve both website and Telegram adapters.
-- External delivery happens after durable financial persistence and records explicit retry state.
-- Current handoff target is an empty live system before manual Test 1, despite the homework's later final-submission state requiring completed Test 1/2 data.
+The system is deployed and ready for Patriks Gredzens to begin manual Test 1. This build run did not enter S01-S05 or E01-E07, did not submit the course spreadsheet, and did not expose credentials. Manual Telegram message receipt has not been claimed; observing those messages is part of Patriks's test session.
 
 ## Live resources
 
-- Google Sheet: https://docs.google.com/spreadsheets/d/1ke50QgIIbhbRLYceM1CWJAyRBA0rwUquu4OY2fGUqFU/edit
+- Application: https://wedding-guests-for-hire-phi.vercel.app
 - Telegram: https://t.me/WeddingFinance222bot
-- GitHub: https://github.com/Gredzens/wedding-guests-for-hire (public, `main` at `9d1a126` when first verified)
-- Vercel: pending
-- Supabase: live schema and integrity upgrade verified; transaction tables empty
+- Google Sheet: https://docs.google.com/spreadsheets/d/1ke50QgIIbhbRLYceM1CWJAyRBA0rwUquu4OY2fGUqFU/edit
+- GitHub: https://github.com/Gredzens/wedding-guests-for-hire
+- Supabase: Gredzens Project; committed migrations applied and integrity upgrade verified
 
-## Current blocker assessment
+## Completed evidence
 
-Vercel requires an interactive account sign-in before its official CLI can be authorized. The sign-in page is open in the visible Codex browser and the CLI is waiting on device authorization. Minimum user action: complete that sign-in without sharing credentials, then tell Codex it is done.
+- Read the Master Build Prompt and the complete nine-page homework, including its tables, appendices, hyperlinks, tests, expected results, and failure cases.
+- Implemented one shared TypeScript domain/application layer for website and Telegram validation, permissions, accounting, rounding, decisions, idempotency, and retry behavior.
+- Implemented the responsive manager/employee dashboard, role-specific forms, approvals and corrections, Telegram linking, personal status views, delivery failures, and retry controls.
+- Implemented reproducible Supabase migrations, atomic reference claims, immutable transaction origin, decision constraints, four integrity triggers, and a repeatable five-employee seed.
+- Verified the live database has exactly five employees and zero sales, zero expenses, zero financial reference claims, and no S01-S05 or E01-E07 records.
+- Initialized the live Google Sheet tabs `Sales` and `Expenses` with readable headers and no transaction rows.
+- Published the public GitHub repository and connected it to the Vercel project for deployments.
+- Configured Vercel production variables through encrypted environment storage. No credential values appear in tracked files or documentation.
+- Deployed production successfully. The public page returns HTTP 200, displays Patriks Gredzens and `pg25032`, and links to the reachable Telegram bot, Google Sheet, and GitHub repository.
+- Registered the secured Telegram webhook at the production HTTPS endpoint. Telegram `getMe` identifies `WeddingFinance222bot`; `getWebhookInfo` reports the expected URL, zero pending updates, and no last error.
+- Final local checks passed: Prettier formatting, ESLint, TypeScript, 3 test files/10 tests, and the Next.js 16.3.6 production build.
+- Automated tests cover both supplied datasets, invalid/unauthorized operations, deterministic rounding and tie order, duplicate/repeated decisions, Telegram redelivery, recipient preservation, and Sheets/Telegram failure and retry behavior.
+
+## Known manual boundary
+
+- The bot recipient must first open the Telegram link and press **Start**.
+- The real S01/E01 bot flows and their return notifications intentionally remain unobserved until Patriks performs Test 1.
+- Do not submit the course spreadsheet until the homework's two manual tests are complete and verified.
+
+## Manual Test 1 — normal operation
+
+1. Open the Telegram bot, press **Start**, and note your numeric Telegram user ID.
+2. Open the live application as Svetlana. In manager setup, link your Telegram user ID to Richard.
+3. In Telegram as Richard, submit sale S01: customer `Olivia Rose`; description `One proud uncle and an emotional grandmother`; project A; amount €1,000; proposed Richard/Anastasia/Jean-Claude split 50/30/20%.
+4. In the Svetlana manager setup, change that same Telegram link from Richard to Kevin. Do not alter S01; it must retain Richard and the original chat as its notification owner/destination.
+5. In Telegram as Kevin, submit expense E01: `Rented suit and fake pearl necklace for the relatives`; category Materials; amount €120; proposed allocation A.
+6. On the website as Anastasia, submit sale S02: customer `Daniel King`; description `University friends, dancing, and the stripping performance`; project B; amount €2,000; proposed split 0/50/50%.
+7. On the website as Kevin, submit E02: `Taxi for the grandmother; Kevin selected the wrong project`; category Travel; amount €80; proposed allocation B.
+8. On the website as Kevin, submit E03: `Monthly company website subscription`; category Other; amount €100; Company overhead.
+9. Before manager decisions, verify S01/S02 are pending; E01/E02 await allocation; E03 is overhead; approved income and commission expense are €0; both project results are €0; company result is −€300.
+10. As Svetlana, approve S01 unchanged; change S02 to 20/40/40% and approve; approve E01 to A; change E02 from B to A and approve.
+11. Verify Telegram delivers the S01 approval and E01 allocation to the original chat despite the role relink. For S02/E02, use a linked recipient if available; otherwise verify the record says `No Telegram recipient linked`.
+12. Verify final results: Project A €700; Project B €1,800; company €2,400; Richard €90; Anastasia €110; Jean-Claude €100; total commission €300.
+13. Inspect the actual Sales/Expenses Sheet rows, including corrected S02 split and E02 allocation. Refresh the website and confirm persistence before Test 2.
+
+## Manual Test 2 — cumulative additions
+
+1. Keep all Test 1 records. Submit all Test 2 entries through the website using the named demonstration roles.
+2. As Jean-Claude, submit S03: customer `Emma Stonebridge`; description `Premium relatives, including an uncle presented as a surgeon`; project A; €1,500; split 40/40/20%.
+3. As Richard, submit S04: customer `Lucas Green`; description `Small group of loud university friends`; project B; €800; split 25/25/50%.
+4. As Richard, submit S05: customer `Mia Brooks`; description `Extra guests and an embarrassing speech`; project B; €600; split 100/0/0%.
+5. As Kevin, submit E04: `Replacement costumes after an enthusiastic dance performance`; Materials; €250; proposed B.
+6. As Kevin, submit E05: `Minibus for university friends; Kevin selected the wrong project again`; Travel; €90; proposed A.
+7. As Kevin, submit E06: `Company telephone subscription`; Other; €60; Company overhead.
+8. As Kevin, submit E07: `Emergency replacement clothing; project allocation still needs checking`; Materials; €140; proposed A.
+9. Before decisions, link Jean-Claude to your Telegram account for the S03 notification. Link Kevin before approving E04/E05. Earlier bot submissions must retain their original notification destinations.
+10. As Svetlana, change S03 to 20/30/50% and approve; approve S04 unchanged; leave S05 pending; approve E04 to B; change E05 from A to B and approve; leave E07 awaiting allocation.
+11. Verify S03 reports a €150 pool: Richard €30, Anastasia €45, Jean-Claude €75, and indicates the changed split. Verify E05 reports €90 moved from A to B. S05/E07 must produce no approval notification.
+12. Verify cumulative results: Project A €2,050; Project B €2,180; company €3,930; Richard €140; Anastasia €175; Jean-Claude €215; total commission €530. S05 remains €600 pending, and E07 remains €140 awaiting allocation but is already included in company expenses.
+13. Verify reconciliation: €2,050 + €2,180 − €160 overhead − €140 awaiting allocation = €3,930.
+14. Exercise the required negative checks: reject 60/30/20%; deny Richard approval; deny Kevin sale entry; reject missing/zero expense amounts; make repeated approval a no-op; reject duplicate references. Control totals must remain unchanged.
+15. With Codex assistance, test an interrupted Sheets update and failed Telegram delivery: the transaction/decision must remain saved, failure must be visible and retryable, retry must update the same row, and financial totals must not change.
 
 ## Exact next action
 
-After Vercel sign-in: finish the waiting CLI authorization, deploy/configure Vercel with encrypted environment variables, configure and verify the secured Telegram webhook, then perform final public-link and empty-table checks before the manual Test 1 handoff.
-
-## Manual test runbook
-
-To be completed verbatim from the homework after live readiness is proven. Do not begin Test 1 yet.
+Open https://t.me/WeddingFinance222bot, press **Start**, then obtain your numeric Telegram user ID so Svetlana can link it to Richard before S01.

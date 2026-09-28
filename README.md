@@ -26,7 +26,9 @@ Copy `.env.example` to a locally ignored environment file and populate it with y
 
 ## Public resources
 
+- [Live application](https://wedding-guests-for-hire-phi.vercel.app)
 - [Telegram bot](https://t.me/WeddingFinance222bot)
 - [View-only Google Sheet](https://docs.google.com/spreadsheets/d/1ke50QgIIbhbRLYceM1CWJAyRBA0rwUquu4OY2fGUqFU/edit)
+- [Public GitHub repository](https://github.com/Gredzens/wedding-guests-for-hire)
 
 Built by Patriks Gredzens (`pg25032`).

@@ -39,12 +39,12 @@ Validation: lint, typecheck, unit/integration tests, focused browser tests, prod
 - [x] Initialize Git; scan secrets; commit; create and push public GitHub repository.
 - [x] Apply Supabase migrations and seed; prove sales/expenses empty.
 - [x] Initialize Sales/Expenses headers and prove no financial rows.
-- [ ] Create/configure/deploy Vercel production with encrypted environment variables.
-- [ ] Configure secured Telegram webhook and verify `getWebhookInfo`.
-- [ ] Verify public page and all links; scan tracked files and Git history again.
+- [x] Create/configure/deploy Vercel production with encrypted environment variables.
+- [x] Configure secured Telegram webhook and verify `getWebhookInfo`.
+- [x] Verify public page and all links; scan tracked files and Git history again.
 
 ## Milestone 6 Manual test handoff
 
-- [ ] Record exact commands/evidence, safe configuration status, URLs, known limitations, and Test 1/Test 2 runbook in `STATUS.md`.
-- [ ] Confirm no S01-S05 or E01-E07 exist anywhere live.
-- [ ] Stop before Patriks performs the first Test 1 action.
+- [x] Record exact commands/evidence, safe configuration status, URLs, known limitations, and Test 1/Test 2 runbook in `STATUS.md`.
+- [x] Confirm no S01-S05 or E01-E07 exist anywhere live.
+- [x] Stop before Patriks performs the first Test 1 action.
