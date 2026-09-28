@@ -1,0 +1,226 @@
+:root {
+  --ivory: #fffaf1;
+  --rose: #c88f92;
+  --wine: #5b1727;
+  --ink: #2c2022;
+  --line: #decfd0;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--ink);
+  font:
+    16px/1.5 Arial,
+    sans-serif;
+}
+main {
+  max-width: 1180px;
+  margin: auto;
+  padding: 28px;
+}
+header {
+  background: var(--wine);
+  color: white;
+  border-radius: 24px;
+  padding: 36px;
+}
+h1 {
+  font:
+    700 clamp(2.2rem, 6vw, 4.8rem)/0.95 Georgia,
+    serif;
+  margin: 0.25rem 0 1rem;
+}
+h2 {
+  font-family: Georgia, serif;
+  color: var(--wine);
+}
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  color: #f2c9ca;
+}
+nav {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+a {
+  color: inherit;
+  font-weight: 700;
+}
+.intro,
+section {
+  margin: 24px 0;
+}
+.intro {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: end;
+}
+.intro select {
+  max-width: 360px;
+}
+.notice {
+  padding: 12px 16px;
+  background: #f4dddd;
+  border-left: 4px solid var(--wine);
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 8px 22px #5b172711;
+}
+.card span {
+  display: block;
+  color: #6f5a5d;
+}
+.card strong {
+  display: block;
+  font:
+    700 1.8rem Georgia,
+    serif;
+  color: var(--wine);
+  margin-top: 6px;
+}
+.compact .card strong {
+  font-size: 1.3rem;
+}
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  background: white;
+  border: 1px solid var(--line);
+  padding: 22px;
+  border-radius: 16px;
+}
+label {
+  font-weight: 700;
+}
+input,
+select {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border: 1px solid #9d8588;
+  border-radius: 10px;
+  background: white;
+  color: var(--ink);
+}
+.triple {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--wine);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+button:focus,
+input:focus,
+select:focus,
+a:focus {
+  outline: 3px solid var(--rose);
+  outline-offset: 2px;
+}
+.tablewrap {
+  overflow: auto;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+th,
+td {
+  text-align: left;
+  padding: 13px;
+  border-bottom: 1px solid var(--line);
+}
+th {
+  background: #f2e4e2;
+  color: var(--wine);
+}
+.badge {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+.actions {
+  display: flex;
+  gap: 6px;
+}
+.decision-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-width: 15rem;
+}
+.decision-form > span {
+  color: #6f5a5d;
+  font-size: 0.78rem;
+}
+.split-edit {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(3.4rem, 1fr));
+  gap: 0.35rem;
+}
+.split-edit input {
+  min-width: 0;
+  padding: 0.45rem;
+}
+footer {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  color: #6f5a5d;
+}
+@media (max-width: 780px) {
+  main {
+    padding: 14px;
+  }
+  header {
+    padding: 24px;
+    border-radius: 16px;
+  }
+  .intro {
+    display: block;
+  }
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  form {
+    grid-template-columns: 1fr;
+  }
+  .triple {
+    grid-template-columns: 1fr;
+  }
+  .compact {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 460px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
