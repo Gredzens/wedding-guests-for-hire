@@ -42,9 +42,12 @@ export async function POST(request: Request) {
     else throw new Error("Unknown action.");
     return NextResponse.json({ ok: true, result });
   } catch (error) {
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Request failed" },
-      { status: 400 },
-    );
+    const message =
+      error instanceof Error
+        ? error.message
+        : error && typeof error === "object" && "message" in error
+          ? String(error.message)
+          : "Request failed";
+    return NextResponse.json({ error: message }, { status: 400 });
   }
 }

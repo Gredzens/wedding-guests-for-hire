@@ -27,6 +27,7 @@ The system is deployed and ready for Patriks Gredzens to begin manual Test 1. Th
 - Final local checks passed: Prettier formatting, ESLint, TypeScript, 3 test files/10 tests, and the Next.js 16.3.6 production build.
 - Automated tests cover both supplied datasets, invalid/unauthorized operations, deterministic rounding and tie order, duplicate/repeated decisions, Telegram redelivery, recipient preservation, and Sheets/Telegram failure and retry behavior.
 - Corrected the website's percentage inputs so valid zero-percent shares such as S02's `0/50/50` proposal are accepted while monetary inputs still require positive amounts.
+- Repaired the immutable-origin database trigger with table-specific branches after live Test 1 exposed rejected manager updates, and made structured database errors visible instead of the generic `Request failed` message.
 
 ## Known manual boundary
 
