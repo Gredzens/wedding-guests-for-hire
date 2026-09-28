@@ -215,9 +215,30 @@ export default function Dashboard() {
             <Input name="description" label="Description" />
             <Input name="amount" label="Amount EUR" type="number" />
             <div className="triple">
-              <Input name="richard" label="Richard %" type="number" />
-              <Input name="anastasia" label="Anastasia %" type="number" />
-              <Input name="jean" label="Jean-Claude %" type="number" />
+              <Input
+                name="richard"
+                label="Richard %"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+              />
+              <Input
+                name="anastasia"
+                label="Anastasia %"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+              />
+              <Input
+                name="jean"
+                label="Jean-Claude %"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+              />
             </div>
             <button>Save pending sale</button>
           </form>
@@ -461,10 +482,16 @@ function Input({
   name,
   label,
   type = "text",
+  min,
+  max,
+  step,
 }: {
   name: string;
   label: string;
   type?: string;
+  min?: string;
+  max?: string;
+  step?: string;
 }) {
   return (
     <label>
@@ -473,8 +500,9 @@ function Input({
         name={name}
         type={type}
         required
-        min={type === "number" ? "0.01" : undefined}
-        step={type === "number" ? "0.01" : undefined}
+        min={min ?? (type === "number" ? "0.01" : undefined)}
+        max={max}
+        step={step ?? (type === "number" ? "0.01" : undefined)}
       />
     </label>
   );
