@@ -51,6 +51,8 @@ export default function Dashboard() {
   const [actor, setActor] = useState<EmployeeKey>("svetlana");
   const [data, setData] = useState<ApiState>(empty);
   const [notice, setNotice] = useState("Loading records…");
+  const [telegramEmployee, setTelegramEmployee] =
+    useState<EmployeeKey>("richard");
   const load = useCallback(async () => {
     try {
       const r = await fetch(`/api/state?actor=${actor}`, { cache: "no-store" });
@@ -65,6 +67,12 @@ export default function Dashboard() {
   useEffect(() => {
     void load();
   }, [load]);
+  const soleTelegramLink = data.links.length === 1 ? data.links[0] : null;
+  useEffect(() => {
+    if (soleTelegramLink?.employee_key) {
+      setTelegramEmployee(soleTelegramLink.employee_key as EmployeeKey);
+    }
+  }, [soleTelegramLink?.employee_key]);
   const finance = useMemo(
     () =>
       results(
@@ -129,6 +137,16 @@ export default function Dashboard() {
       telegramUserId: f.get("telegramUserId"),
       chatId: f.get("chatId"),
       employeeKey: f.get("employeeKey"),
+    });
+  }
+  function switchTelegramEmployee(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!soleTelegramLink) return;
+    void act({
+      action: "link-telegram",
+      telegramUserId: soleTelegramLink.telegram_user_id,
+      chatId: soleTelegramLink.chat_id,
+      employeeKey: telegramEmployee,
     });
   }
   return (
@@ -403,21 +421,47 @@ export default function Dashboard() {
             Only Svetlana can map a Telegram user and chat to a fictional
             employee. Relinking never changes existing submission ownership.
           </p>
-          <form onSubmit={linkSubmit}>
-            <Input name="telegramUserId" label="Telegram user ID" />
-            <Input name="chatId" label="Telegram chat ID" />
-            <label>
-              Employee
-              <select name="employeeKey">
-                {employeeKeys.map((key) => (
-                  <option key={key} value={key}>
-                    {employees[key].name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <button>Save Telegram link</button>
-          </form>
+          {soleTelegramLink ? (
+            <form onSubmit={switchTelegramEmployee}>
+              <p>
+                Reusing Telegram user {soleTelegramLink.telegram_user_id}. Pick
+                the employee who should use the bot now.
+              </p>
+              <label>
+                Telegram employee
+                <select
+                  name="employeeKey"
+                  value={telegramEmployee}
+                  onChange={(event) =>
+                    setTelegramEmployee(event.target.value as EmployeeKey)
+                  }
+                >
+                  {employeeKeys.map((key) => (
+                    <option key={key} value={key}>
+                      {employees[key].name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button>Switch Telegram employee</button>
+            </form>
+          ) : (
+            <form onSubmit={linkSubmit}>
+              <Input name="telegramUserId" label="Telegram user ID" />
+              <Input name="chatId" label="Telegram chat ID" />
+              <label>
+                Employee
+                <select name="employeeKey">
+                  {employeeKeys.map((key) => (
+                    <option key={key} value={key}>
+                      {employees[key].name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button>Save Telegram link</button>
+            </form>
+          )}
           {data.links.length > 0 && (
             <ul>
               {data.links.map((link: any) => (

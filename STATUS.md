@@ -28,6 +28,7 @@ The system is deployed and ready for Patriks Gredzens to begin manual Test 1. Th
 - Automated tests cover both supplied datasets, invalid/unauthorized operations, deterministic rounding and tie order, duplicate/repeated decisions, Telegram redelivery, recipient preservation, and Sheets/Telegram failure and retry behavior.
 - Corrected the website's percentage inputs so valid zero-percent shares such as S02's `0/50/50` proposal are accepted while monetary inputs still require positive amounts.
 - Repaired the immutable-origin database trigger with table-specific branches after live Test 1 exposed rejected manager updates, and made structured database errors visible instead of the generic `Request failed` message.
+- Simplified the manager Telegram setup for a single saved account: once linked, Svetlana can switch the bot between fictional employees with one selector instead of re-entering the Telegram user and chat IDs.
 
 ## Known manual boundary
 
