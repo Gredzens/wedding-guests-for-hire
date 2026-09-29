@@ -2,7 +2,7 @@
 
 ## Handoff state
 
-The system is deployed and ready for Patriks Gredzens to begin manual Test 1. This build run did not enter S01-S05 or E01-E07, did not submit the course spreadsheet, and did not expose credentials. Manual Telegram message receipt has not been claimed; observing those messages is part of Patriks's test session.
+The system is deployed, and Patriks Gredzens completed manual Tests 1 and 2 on September 29, 2026. The production records, dashboard totals, Telegram notifications/retry behavior, and Google Sheet rows were verified. The course spreadsheet has not been submitted, and no credentials were exposed.
 
 ## Live resources
 
@@ -18,8 +18,8 @@ The system is deployed and ready for Patriks Gredzens to begin manual Test 1. Th
 - Implemented one shared TypeScript domain/application layer for website and Telegram validation, permissions, accounting, rounding, decisions, idempotency, and retry behavior.
 - Implemented the responsive manager/employee dashboard, role-specific forms, approvals and corrections, Telegram linking, personal status views, delivery failures, and retry controls.
 - Implemented reproducible Supabase migrations, atomic reference claims, immutable transaction origin, decision constraints, four integrity triggers, and a repeatable five-employee seed.
-- Verified the live database has exactly five employees and zero sales, zero expenses, zero financial reference claims, and no S01-S05 or E01-E07 records.
-- Initialized the live Google Sheet tabs `Sales` and `Expenses` with readable headers and no transaction rows.
+- Verified the pre-Test-1 live database had exactly five employees and no transaction records before Patriks began manual entry.
+- Initialized the live Google Sheet tabs `Sales` and `Expenses` with readable headers and no transaction rows before manual testing.
 - Published the public GitHub repository and connected it to the Vercel project for deployments.
 - Configured Vercel production variables through encrypted environment storage. No credential values appear in tracked files or documentation.
 - Deployed production successfully. The public page returns HTTP 200, displays Patriks Gredzens and `pg25032`, and links to the reachable Telegram bot, Google Sheet, and GitHub repository.
@@ -29,12 +29,15 @@ The system is deployed and ready for Patriks Gredzens to begin manual Test 1. Th
 - Corrected the website's percentage inputs so valid zero-percent shares such as S02's `0/50/50` proposal are accepted while monetary inputs still require positive amounts.
 - Repaired the immutable-origin database trigger with table-specific branches after live Test 1 exposed rejected manager updates, and made structured database errors visible instead of the generic `Request failed` message.
 - Simplified the manager Telegram setup for a single saved account: once linked, Svetlana can switch the bot between fictional employees with one selector instead of re-entering the Telegram user and chat IDs.
+- Completed both production manual datasets. Final cumulative results were verified as Project A €2,050, Project B €2,180, company €3,930, Richard €140, Anastasia €175, Jean-Claude €215, and total commission €530; S05 remained pending and E07 remained awaiting allocation.
+- Completed the negative checks: invalid splits, unauthorized approval and sale submission, zero/missing expense amounts, duplicate references, and repeated approval were rejected or treated as a no-op without changing records or totals.
+- Verified live Telegram failure visibility and retry using S04, and Patriks confirmed the final Google Sheet rows reconcile with the application.
 
 ## Known manual boundary
 
 - The bot recipient must first open the Telegram link and press **Start**.
-- The real S01/E01 bot flows and their return notifications intentionally remain unobserved until Patriks performs Test 1.
-- Do not submit the course spreadsheet until the homework's two manual tests are complete and verified.
+- S02 retains the expected visible `No Telegram recipient linked` delivery failure because no Anastasia recipient was linked when it was approved; this does not affect the saved decision or financial results.
+- The course spreadsheet has not been submitted; submission remains a separate user-controlled action.
 
 ## Manual Test 1 — normal operation
 
