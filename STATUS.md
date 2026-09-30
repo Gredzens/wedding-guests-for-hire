@@ -32,6 +32,7 @@ The system is deployed, and Patriks Gredzens completed manual Tests 1 and 2 on S
 - Completed both production manual datasets. Final cumulative results were verified as Project A €2,050, Project B €2,180, company €3,930, Richard €140, Anastasia €175, Jean-Claude €215, and total commission €530; S05 remained pending and E07 remained awaiting allocation.
 - Completed the negative checks: invalid splits, unauthorized approval and sale submission, zero/missing expense amounts, duplicate references, and repeated approval were rejected or treated as a no-op without changing records or totals.
 - Verified live Telegram failure visibility and retry using S04, and Patriks confirmed the final Google Sheet rows reconcile with the application.
+- Addressed instructor review feedback by adding a self-contained Telegram reviewer route: the bot reveals the reviewer's own user/chat IDs, the manager view always accepts a new account, and each saved account can be switched independently between test employees without changing earlier submission ownership or destinations.
 
 ## Known manual boundary
 

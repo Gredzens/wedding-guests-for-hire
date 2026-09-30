@@ -51,8 +51,6 @@ export default function Dashboard() {
   const [actor, setActor] = useState<EmployeeKey>("svetlana");
   const [data, setData] = useState<ApiState>(empty);
   const [notice, setNotice] = useState("Loading records…");
-  const [telegramEmployee, setTelegramEmployee] =
-    useState<EmployeeKey>("richard");
   const load = useCallback(async () => {
     try {
       const r = await fetch(`/api/state?actor=${actor}`, { cache: "no-store" });
@@ -67,12 +65,6 @@ export default function Dashboard() {
   useEffect(() => {
     void load();
   }, [load]);
-  const soleTelegramLink = data.links.length === 1 ? data.links[0] : null;
-  useEffect(() => {
-    if (soleTelegramLink?.employee_key) {
-      setTelegramEmployee(soleTelegramLink.employee_key as EmployeeKey);
-    }
-  }, [soleTelegramLink?.employee_key]);
   const finance = useMemo(
     () =>
       results(
@@ -139,14 +131,14 @@ export default function Dashboard() {
       employeeKey: f.get("employeeKey"),
     });
   }
-  function switchTelegramEmployee(e: FormEvent<HTMLFormElement>) {
+  function switchTelegramEmployee(e: FormEvent<HTMLFormElement>, link: any) {
     e.preventDefault();
-    if (!soleTelegramLink) return;
+    const form = new FormData(e.currentTarget);
     void act({
       action: "link-telegram",
-      telegramUserId: soleTelegramLink.telegram_user_id,
-      chatId: soleTelegramLink.chat_id,
-      employeeKey: telegramEmployee,
+      telegramUserId: link.telegram_user_id,
+      chatId: link.chat_id,
+      employeeKey: form.get("employeeKey"),
     });
   }
   return (
@@ -416,61 +408,78 @@ export default function Dashboard() {
       </section>
       {actor === "svetlana" && (
         <section>
-          <h2>Telegram employee links</h2>
+          <h2>Telegram reviewer testing</h2>
           <p>
-            Only Svetlana can map a Telegram user and chat to a fictional
-            employee. Relinking never changes existing submission ownership.
+            Each reviewer can safely link their own Telegram account to a
+            fictional employee. No bot token, password, private message, or
+            production credential is needed.
           </p>
-          {soleTelegramLink ? (
-            <form onSubmit={switchTelegramEmployee}>
-              <p>
-                Reusing Telegram user {soleTelegramLink.telegram_user_id}. Pick
-                the employee who should use the bot now.
-              </p>
-              <label>
-                Telegram employee
-                <select
-                  name="employeeKey"
-                  value={telegramEmployee}
-                  onChange={(event) =>
-                    setTelegramEmployee(event.target.value as EmployeeKey)
-                  }
-                >
-                  {employeeKeys.map((key) => (
-                    <option key={key} value={key}>
-                      {employees[key].name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button>Switch Telegram employee</button>
-            </form>
-          ) : (
-            <form onSubmit={linkSubmit}>
-              <Input name="telegramUserId" label="Telegram user ID" />
-              <Input name="chatId" label="Telegram chat ID" />
-              <label>
-                Employee
-                <select name="employeeKey">
-                  {employeeKeys.map((key) => (
-                    <option key={key} value={key}>
-                      {employees[key].name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button>Save Telegram link</button>
-            </form>
-          )}
+          <ol>
+            <li>
+              Open the <a href="https://t.me/WeddingFinance222bot">bot</a> and
+              press <strong>Start</strong>. The bot will show your numeric user
+              ID and chat ID if you are not linked. Send <strong>/id</strong> at
+              any time to see them again.
+            </li>
+            <li>
+              Enter those two IDs below, choose a salesperson or Kevin, and save
+              the link. Return to Telegram and send <strong>/start</strong>
+              to test that role.
+            </li>
+            <li>
+              To test another role with the same account, use its saved-account
+              selector below. Earlier submissions keep their original owner and
+              return-message destination.
+            </li>
+          </ol>
+          <h3>Add or relink a reviewer account</h3>
+          <form onSubmit={linkSubmit}>
+            <Input name="telegramUserId" label="Telegram user ID" />
+            <Input name="chatId" label="Telegram chat ID" />
+            <label>
+              Test employee
+              <select name="employeeKey" defaultValue="richard">
+                {employeeKeys.map((key) => (
+                  <option key={key} value={key}>
+                    {employees[key].name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button>Save reviewer account</button>
+          </form>
           {data.links.length > 0 && (
-            <ul>
-              {data.links.map((link: any) => (
-                <li key={link.telegram_user_id}>
-                  {link.telegram_user_id} →{" "}
-                  {employees[link.employee_key as EmployeeKey].name}
-                </li>
-              ))}
-            </ul>
+            <>
+              <h3>Saved reviewer accounts</h3>
+              <ul className="reviewer-links">
+                {data.links.map((link: any) => (
+                  <li key={link.telegram_user_id}>
+                    <form
+                      onSubmit={(event) => switchTelegramEmployee(event, link)}
+                    >
+                      <span>
+                        Telegram user {link.telegram_user_id} · chat{" "}
+                        {link.chat_id}
+                      </span>
+                      <label>
+                        Current test employee
+                        <select
+                          name="employeeKey"
+                          defaultValue={link.employee_key}
+                        >
+                          {employeeKeys.map((key) => (
+                            <option key={key} value={key}>
+                              {employees[key].name}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <button>Switch this account</button>
+                    </form>
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
         </section>
       )}

@@ -190,6 +190,15 @@ th {
   min-width: 0;
   padding: 0.45rem;
 }
+.reviewer-links {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+}
+.reviewer-links form {
+  align-items: end;
+}
 footer {
   border-top: 1px solid var(--line);
   padding-top: 16px;

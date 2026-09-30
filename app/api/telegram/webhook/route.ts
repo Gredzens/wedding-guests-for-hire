@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db, submitExpense, submitSale } from "@/lib/server";
 import type { EmployeeKey } from "@/lib/domain";
+import { telegramIdentity } from "@/lib/integration";
 
 type Update = {
   update_id: number;
@@ -58,6 +59,15 @@ export async function POST(request: Request) {
     );
     const text =
       update.callback_query?.data ?? update.message?.text?.trim() ?? "";
+    const identity = telegramIdentity(user, chat);
+    if (text === "/id") {
+      await send(
+        chat,
+        identity +
+          "\nEnter these values in the website's Telegram reviewer testing section.",
+      );
+      return NextResponse.json({ ok: true });
+    }
     const link = await c
       .from("telegram_links")
       .select("employee_key")
@@ -66,7 +76,9 @@ export async function POST(request: Request) {
     if (!link.data) {
       await send(
         chat,
-        "Your Telegram account is not linked. Ask Svetlana to link your Telegram user ID in the manager area.",
+        "Your Telegram account is not linked.\n" +
+          identity +
+          "\nOpen the website as Svetlana, enter both IDs in Telegram reviewer testing, choose a test employee, and save. Then send /start again.",
       );
       return NextResponse.json({ ok: true });
     }
@@ -88,7 +100,9 @@ export async function POST(request: Request) {
             : "Sale";
       await send(
         chat,
-        `Welcome, ${actor}. Choose an allowed action.`,
+        "Welcome, " +
+          actor +
+          ". Choose an allowed action. Send /id at any time to view your Telegram IDs.",
         actor === "svetlana" ? undefined : [[action]],
       );
       return NextResponse.json({ ok: true });

@@ -15,3 +15,15 @@ export function notificationRecipient(
 ) {
   return originalChatId || currentlyLinkedChatId || undefined;
 }
+
+export function telegramIdentity(
+  telegramUserId: string,
+  telegramChatId: string,
+) {
+  return (
+    "Telegram user ID: " +
+    telegramUserId +
+    "\nTelegram chat ID: " +
+    telegramChatId
+  );
+}

@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { notificationRecipient, sheetUpsertRange } from "../lib/integration";
+import {
+  notificationRecipient,
+  sheetUpsertRange,
+  telegramIdentity,
+} from "../lib/integration";
 
 describe("integration invariants", () => {
   it("updates the existing Sheets row for a repeated reference", () => {
@@ -20,5 +24,11 @@ describe("integration invariants", () => {
     );
     expect(notificationRecipient(null, "linked-chat")).toBe("linked-chat");
     expect(notificationRecipient(null, null)).toBeUndefined();
+  });
+
+  it("gives a reviewer both Telegram identifiers without credentials", () => {
+    expect(telegramIdentity("12345", "67890")).toBe(
+      "Telegram user ID: 12345\nTelegram chat ID: 67890",
+    );
   });
 });
